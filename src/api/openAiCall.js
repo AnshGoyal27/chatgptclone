@@ -1,5 +1,6 @@
 
-export async function GPTcall(message,dispatch){
+export async function GPTcall(message,dispatch,load,setLoad){
+    setLoad(!load);
     await fetch("https://api.openai.com/v1/chat/completions",{
         method: "POST",
       headers: {
@@ -27,6 +28,7 @@ export async function GPTcall(message,dispatch){
                 message :  data.choices[0].message.content
               }
         });
+        setLoad(false);
         return data.choices[0].message.content;
     })
     .catch((err)=>{

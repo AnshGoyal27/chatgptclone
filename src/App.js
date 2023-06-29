@@ -1,7 +1,7 @@
 import './App.css';
 import { TextBox } from './components/TextBox';
 import { GPTcall } from './api/openAiCall';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 
 function App() {
 
@@ -9,6 +9,7 @@ function App() {
     return {chat:[...state.chat,action.payload]}
   }
 
+  const [loading,setLoading]  = useState(false)
   const [state,dispatch] = useReducer(reducer,{chat:[]});
 
   async function submitted(text,textbox){
@@ -16,7 +17,7 @@ function App() {
       console.log("Empty");
     }
     else{
-      GPTcall(text,dispatch);
+      GPTcall(text,dispatch,loading,setLoading);
       dispatch({payload:{
         type : "user",
         message :  text
@@ -40,6 +41,7 @@ function App() {
               <TextBox key = {index+ele.type} type  = {ele.type} message={ele.message}/>
             )
           })}
+          {loading?<h1>Loading</h1>:<div></div>}
         </div>
     </div>
   );
