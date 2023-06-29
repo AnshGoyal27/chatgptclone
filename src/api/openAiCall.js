@@ -33,6 +33,13 @@ export async function GPTcall(message,dispatch,load,setLoad){
     })
     .catch((err)=>{
         console.log(err);
+        dispatch({
+            payload : {
+                type : "gpt",
+                message :  "Error Loading"
+              }
+        });
+        setLoad(false)
         return new Error('Error fetching response')
     })
 
