@@ -1,4 +1,3 @@
-// const API_KEY = "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";
 
 export async function GPTcall(message,dispatch){
     await fetch("https://api.openai.com/v1/chat/completions",{
